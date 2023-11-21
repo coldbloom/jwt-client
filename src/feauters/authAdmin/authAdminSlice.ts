@@ -23,7 +23,23 @@ export const login = createAsyncThunk('authAdmin/login', async (credentials: { e
         console.log(`При выполнении запроса произошла ошибка ${error}`);
         throw error; // Прокидываем ошибку дальше, чтобы обработать ее в компоненте
     }
-})
+});
+
+export const logout = createAsyncThunk('authAdmin/logout', async () => {
+    try {
+
+    } catch (error) {
+
+    }
+});
+
+export const refresh = createAsyncThunk('authAdmin/refresh', async () => {
+    try {
+
+    } catch {
+
+    }
+});
 
 export const authAdminSlice = createSlice({
     name: 'authAdmin',
@@ -31,7 +47,13 @@ export const authAdminSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (state, action) => {
-            console.log('action payload ', action.payload)
+            state.id = action.payload.user.id;
+            state.email = action.payload.user.email;
+            state.role = action.payload.user.role;
+
+            console.log('action payload id', state.id)
+            console.log('action payload email', state.email)
+            console.log('action payload role', state.role)
         });
 
         builder.addCase(login.rejected, (state, action) => {
