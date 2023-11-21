@@ -9,9 +9,10 @@ const instance: AxiosInstance = axios.create({
 
 instance.interceptors.request.use(
     (config) => {
-        const accessToken: string | null = sessionStorage.getItem('accessToken');
+        const accessToken: string | null = localStorage.getItem('accessToken');
         if (accessToken) {
             config.headers['Authorization'] = `Bearer ${accessToken}`;
+            console.log('из instanceAxios', accessToken)
         }
         return config;
     },
